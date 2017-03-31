@@ -30,9 +30,8 @@ class Segment {
        target.y = parent.position.y; // + cos(angle) * len;
      }
      else{
-      target.x += velocity.x; //position.x + cos(angle) * len;
-      target.y += velocity.y; //position.y + sin(angle) * len;
-     }
+      target.add(velocity);
+    }
     
     float dx = target.x - position.x;
     float dy = target.y - position.y;
