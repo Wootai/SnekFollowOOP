@@ -10,9 +10,9 @@ class Segment {
    Segment(float x, float y, float l){
      position = new PVector(x, y);
      velocity = new PVector(1.525, .5);
-     target = new PVector(x, y);
+     target = velocity.copy().add(position);
      len = l;
-     col = color(255, 0,0);
+     col = red;
    }
 
    Segment(Segment c, float l, color _col){
@@ -22,12 +22,11 @@ class Segment {
      len = l;
      col = _col;
    }
-
    
    void update(){
      if(parent!= null){
-       target.x = parent.position.x; // + cos(angle) * len;
-       target.y = parent.position.y; // + cos(angle) * len;
+       target.x = parent.position.x; 
+       target.y = parent.position.y; 
      }
      else{
       target.add(velocity);

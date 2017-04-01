@@ -1,9 +1,9 @@
-Segment head;
-Segment body1;
+Segment snakePart;
 Apple apple;
 ArrayList<Segment> snake;
 color red = color(255, 0, 0);
 color green = color(0,150,0);
+float snakepartLength = 20;
 int score;
 
 void setup(){
@@ -11,20 +11,19 @@ void setup(){
  score = 0;
  snake = new ArrayList<Segment>();
  apple = new Apple();
- head = new Segment(width/2, height/2, 20);
- snake.add(head);
+ snakePart = new Segment(width/2, height/2, snakepartLength);
+ snake.add(snakePart);
  for(int i = 1; i < 4; i++){
    color f = green;
    if(i%2 == 0){f = red;}
    else{f = green;}
-   body1 = new Segment(snake.get(i-1), 20, f);
-   snake.add(body1);
+   snakePart = new Segment(snake.get(i-1), snakepartLength, f);
+   snake.add(snakePart);
  }
 }
 
 void draw(){
   background(172);
-  
   fill(255);
   textSize(32);
   text(score, width/2, 36);
@@ -33,27 +32,13 @@ void draw(){
     snake.get(i).update();
     strokeWeight(map(i, 0, snake.size(), 10, 1));
     snake.get(i).show();
-    }
- 
- for(int i = 2; i < snake.size(); i++){
-   if(doIntersect(snake.get(0).target, snake.get(0).position, snake.get(i).target, snake.get(i).position)){
+  }
+   
+   apple.show();
+   apple.update();
+   
+   if(gameOver()){
      println("Game Over. Your score was: ", score);
      setup();
-   }
- }
- if(edges()){
-   println("Game Over. Your score was: ", score);
-   setup();
- }
- apple.show();
- apple.update();
-}
-
-void keyPressed(){
-  if(keyCode == RIGHT){
-    snake.get(0).velocity.rotate(QUARTER_PI*.5);
-  }
-  if(keyCode == LEFT){
-    snake.get(0).velocity.rotate(-QUARTER_PI*.5);
-  }
+   }   
 }
